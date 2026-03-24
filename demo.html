@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barraca Don Roque — Materiales de Construcción · Ciudad de la Costa</title>
+    <meta name="description" content="Materiales de construcción en Ciudad de la Costa. Cemento, hierro, madera, pintura y más. Asesoramiento sin vueltas y entrega el mismo día.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;600;700&family=Lora:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================
+           BARRACA DON ROQUE
+           Stack: HTML/CSS/JS Vanilla · Sin servidor
+           Demo PIX Agencia Digital
+        ============================================ */
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg:        #110f0d;
+            --bg-2:      #1b1612;
+            --bg-3:      #242019;
+            --rust:      #c4601a;
+            --rust-dark: #9e4d14;
+            --sand:      #c8a97a;
+            --off-white: #f0e4cc;
+            --text:      #d6c8b4;
+            --muted:     #6b5e52;
+            --border:    #2c241c;
+            --wa:        #25D366;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Lora', Georgia, serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.65;
+            overflow-x: hidden;
+        }
+
+        /* Grain overlay sutil */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+            opacity: 0.025;
+            pointer-events: none;
+            z-index: 9998;
+        }
+
+        /* ========== HEADER ========== */
+        header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2.5rem;
+            background: rgba(17, 15, 13, 0.93);
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: border-color 0.3s;
+        }
+
+        .nav-brand {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--off-white);
+            text-decoration: none;
+        }
+        .nav-brand em { color: var(--rust); font-style: normal; }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+        .nav-links a {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 400;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--off-white); }
+
+        .nav-wa {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--rust);
+            color: white;
+            padding: 0.55rem 1.25rem;
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .nav-wa:hover { background: var(--rust-dark); }
+        .nav-wa svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+        .nav-mobile { display: none; }
+
+        /* ========== HERO ========== */
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: flex-end;
+            padding: 8rem 2.5rem 5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 75% 20%, rgba(196, 96, 26, 0.08) 0%, transparent 55%),
+                radial-gradient(ellipse at 20% 85%, rgba(196, 96, 26, 0.04) 0%, transparent 40%),
+                linear-gradient(160deg, #1a1410 0%, #0c0a08 55%, #1e1a16 100%);
+        }
+
+        /* Línea decorativa vertical */
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 14%;
+            width: 1px; height: 100%;
+            background: linear-gradient(to bottom, transparent, var(--border) 25%, var(--border) 75%, transparent);
+            opacity: 0.6;
+        }
+
+        /* Marca de agua — gran "R" */
+        .hero-bg::after {
+            content: 'R';
+            position: absolute;
+            right: 2%;
+            top: 50%;
+            transform: translateY(-50%);
+            font-family: 'Oswald', sans-serif;
+            font-weight: 700;
+            font-size: 42vw;
+            line-height: 1;
+            color: var(--off-white);
+            opacity: 0.012;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1100px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .hero-eyebrow {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 300;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--rust);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            animation: fadeUp 0.9s ease both 0.1s;
+        }
+        .hero-eyebrow::before {
+            content: '';
+            display: inline-block;
+            width: 45px; height: 1px;
+            background: var(--rust);
+        }
+
+        h1.hero-h1 {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 700;
+            font-size: clamp(4.5rem, 13vw, 11rem);
+            line-height: 0.88;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            color: var(--off-white);
+            animation: fadeUp 0.9s ease both 0.2s;
+        }
+        h1.hero-h1 .rust { color: var(--rust); display: block; }
+
+        .hero-sep {
+            width: 80px; height: 3px;
+            background: var(--rust);
+            margin: 2rem 0;
+            animation: fadeUp 0.9s ease both 0.3s;
+        }
+
+        .hero-tagline {
+            font-size: clamp(0.95rem, 2vw, 1.2rem);
+            color: var(--sand);
+            max-width: 460px;
+            font-style: italic;
+            line-height: 1.75;
+            animation: fadeUp 0.9s ease both 0.4s;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 2.5rem;
+            animation: fadeUp 0.9s ease both 0.5s;
+        }
+
+        .btn-main {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: var(--rust);
+            color: white;
+            padding: 1rem 2rem;
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: background 0.2s, transform 0.15s;
+        }
+        .btn-main:hover { background: var(--rust-dark); transform: translateY(-2px); }
+        .btn-main svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+        .btn-ghost {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--off-white);
+            padding: 1rem 2rem;
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: 1px solid var(--border);
+            transition: border-color 0.2s, color 0.2s;
+        }
+        .btn-ghost:hover { border-color: var(--rust); color: var(--rust); }
+
+        .hero-stats {
+            position: absolute;
+            bottom: 4rem; right: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.75rem;
+            text-align: right;
+            animation: fadeUp 0.9s ease both 0.6s;
+        }
+        .stat-num {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--rust);
+            line-height: 1;
+        }
+        .stat-label {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.62rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        /* ========== SECCIONES COMUNES ========== */
+        section { padding: 5.5rem 2.5rem; }
+
+        .container { max-width: 1100px; margin: 0 auto; }
+
+        .s-eyebrow {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 300;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--rust);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .s-eyebrow::before {
+            content: '';
+            display: inline-block;
+            width: 28px; height: 1px;
+            background: var(--rust);
+        }
+
+        .s-title {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 700;
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            text-transform: uppercase;
+            letter-spacing: -0.01em;
+            color: var(--off-white);
+            line-height: 0.95;
+            margin-bottom: 3rem;
+        }
+
+        /* ========== POR QUÉ DON ROQUE ========== */
+        #porque {
+            background: var(--bg-2);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .difs-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            border: 1px solid var(--border);
+        }
+
+        .dif {
+            padding: 3rem 2.5rem;
+            border-right: 1px solid var(--border);
+            transition: background 0.25s;
+        }
+        .dif:last-child { border-right: none; }
+        .dif:hover { background: var(--bg-3); }
+
+        .dif-icon {
+            width: 44px; height: 44px;
+            color: var(--rust);
+            margin-bottom: 1.75rem;
+        }
+
+        .dif h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: var(--off-white);
+            margin-bottom: 0.875rem;
+        }
+
+        .dif p {
+            color: var(--sand);
+            font-size: 0.9rem;
+            line-height: 1.85;
+        }
+
+        /* ========== PRODUCTOS ========== */
+        #productos { background: var(--bg); }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            margin-bottom: 1.5rem;
+        }
+
+        .product {
+            background: var(--bg-2);
+            padding: 2.5rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.25rem;
+            text-align: center;
+            transition: background 0.2s;
+        }
+        .product:hover { background: var(--bg-3); }
+
+        .product-icon { width: 38px; height: 38px; color: var(--rust); }
+
+        .product span {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--off-white);
+        }
+
+        .products-note {
+            font-size: 0.875rem;
+            color: var(--muted);
+            font-style: italic;
+            text-align: center;
+        }
+
+        /* ========== CÓMO FUNCIONA ========== */
+        #como {
+            background: var(--bg-2);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            border: 1px solid var(--border);
+        }
+
+        .step {
+            padding: 3rem 2.5rem;
+            border-right: 1px solid var(--border);
+            position: relative;
+        }
+        .step:last-child { border-right: none; }
+
+        .step-num {
+            font-family: 'Oswald', sans-serif;
+            font-size: 5.5rem;
+            font-weight: 700;
+            line-height: 1;
+            color: var(--border);
+            margin-bottom: 1.5rem;
+            user-select: none;
+        }
+
+        .step h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--off-white);
+            margin-bottom: 0.875rem;
+        }
+
+        .step p { color: var(--sand); font-size: 0.9rem; line-height: 1.85; }
+
+        .step-arrow {
+            position: absolute;
+            top: 50%; right: -13px;
+            transform: translateY(-50%);
+            width: 26px; height: 26px;
+            background: var(--bg-3);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+            color: var(--rust);
+        }
+        .step-arrow svg { width: 12px; height: 12px; }
+        .step:last-child .step-arrow { display: none; }
+
+        /* ========== COBERTURA ========== */
+        #cobertura { background: var(--bg); }
+
+        .cobertura-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.15fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .zonas-list {
+            border: 1px solid var(--border);
+        }
+
+        .zona {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            transition: background 0.2s;
+        }
+        .zona:last-child { border-bottom: none; }
+        .zona:hover { background: var(--bg-2); }
+        .zona > svg { width: 16px; height: 16px; color: var(--rust); flex-shrink: 0; }
+
+        .zona span {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.88rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--off-white);
+        }
+
+        .zona-tag {
+            margin-left: auto;
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.65rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--rust);
+        }
+
+        .cobertura-box {
+            padding: 3rem;
+            background: var(--bg-2);
+            border: 1px solid var(--border);
+        }
+
+        .cobertura-box h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--off-white);
+            margin-bottom: 1rem;
+        }
+
+        .cobertura-box p {
+            color: var(--sand);
+            font-size: 0.9rem;
+            line-height: 1.9;
+            margin-bottom: 1.5rem;
+        }
+
+        /* ========== TESTIMONIOS ========== */
+        #testimonios {
+            background: var(--bg-2);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .testi-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+        }
+
+        .testi {
+            background: var(--bg-2);
+            padding: 3rem 2.5rem;
+            position: relative;
+            transition: background 0.2s;
+        }
+        .testi:hover { background: var(--bg-3); }
+
+        .quote-mark {
+            font-family: 'Lora', serif;
+            font-size: 5.5rem;
+            line-height: 1;
+            color: var(--rust);
+            opacity: 0.15;
+            position: absolute;
+            top: 1.5rem; left: 2rem;
+            user-select: none;
+        }
+
+        .testi blockquote {
+            font-size: 0.92rem;
+            color: var(--sand);
+            line-height: 1.9;
+            font-style: italic;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testi-footer {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .testi-init {
+            width: 38px; height: 38px;
+            background: var(--bg-3);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--rust);
+            flex-shrink: 0;
+        }
+
+        .testi-info strong {
+            display: block;
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--off-white);
+        }
+        .testi-info span {
+            font-size: 0.75rem;
+            color: var(--muted);
+            font-style: italic;
+        }
+
+        /* ========== FAQ ========== */
+        #faq { background: var(--bg); }
+
+        .faq-list { border: 1px solid var(--border); }
+
+        .faq-item { border-bottom: 1px solid var(--border); }
+        .faq-item:last-child { border-bottom: none; }
+
+        .faq-q {
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            text-align: left;
+            gap: 1rem;
+            transition: background 0.2s;
+        }
+        .faq-q:hover { background: var(--bg-2); }
+
+        .faq-q-text {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            color: var(--off-white);
+        }
+
+        .faq-icon {
+            width: 20px; height: 20px;
+            color: var(--rust);
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+        }
+        .faq-item.open .faq-icon { transform: rotate(45deg); }
+
+        .faq-a {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease;
+        }
+        .faq-a-inner {
+            padding: 0 2rem 1.5rem;
+            color: var(--sand);
+            font-size: 0.9rem;
+            line-height: 1.9;
+        }
+
+        /* ========== CTA FINAL ========== */
+        #cta-final {
+            background: var(--bg-2);
+            border-top: 1px solid var(--border);
+            padding: 9rem 2.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        #cta-final::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 50%, rgba(196, 96, 26, 0.07) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .cta-eyebrow {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 300;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: var(--rust);
+            margin-bottom: 1.25rem;
+        }
+
+        h2.cta-title {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 700;
+            font-size: clamp(3rem, 9vw, 7.5rem);
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            color: var(--off-white);
+            line-height: 0.9;
+            margin-bottom: 1.5rem;
+        }
+        h2.cta-title span { color: var(--rust); }
+
+        .cta-sub {
+            font-size: 1rem;
+            color: var(--sand);
+            font-style: italic;
+            margin-bottom: 3rem;
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.875rem;
+            background: var(--wa);
+            color: white;
+            padding: 1.125rem 2.5rem;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: opacity 0.2s, transform 0.15s;
+        }
+        .cta-btn:hover { opacity: 0.9; transform: translateY(-2px); }
+        .cta-btn svg { width: 22px; height: 22px; }
+
+        /* ========== FOOTER ========== */
+        footer {
+            background: var(--bg);
+            border-top: 1px solid var(--border);
+            padding: 2rem 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-brand {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+        .footer-brand em { color: var(--rust); font-style: normal; }
+
+        footer p {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        /* ========== WHATSAPP FLOTANTE ========== */
+        .wa-float {
+            position: fixed;
+            bottom: 1.75rem; right: 1.75rem;
+            z-index: 200;
+            width: 58px; height: 58px;
+            background: var(--wa);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 4px 24px rgba(37, 211, 102, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .wa-float:hover {
+            transform: scale(1.1) translateY(-2px);
+            box-shadow: 0 8px 32px rgba(37, 211, 102, 0.4);
+        }
+        .wa-float svg { width: 28px; height: 28px; color: white; }
+
+        .wa-pulse {
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            border: 2px solid var(--wa);
+            animation: pulse 2.5s ease-out infinite;
+        }
+
+        /* ========== ANIMACIONES ========== */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(28px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0%   { opacity: 0.7; transform: scale(1); }
+            100% { opacity: 0;   transform: scale(1.55); }
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 960px) {
+            .nav-links { display: none; }
+            .nav-mobile { display: flex; }
+
+            #hero { padding: 7rem 1.5rem 4rem; }
+            .hero-stats { display: none; }
+
+            section { padding: 4rem 1.5rem; }
+
+            .difs-grid, .steps {
+                grid-template-columns: 1fr;
+            }
+            .dif { border-right: none; border-bottom: 1px solid var(--border); }
+            .dif:last-child { border-bottom: none; }
+            .step { border-right: none; border-bottom: 1px solid var(--border); }
+            .step:last-child { border-bottom: none; }
+            .step-arrow { display: none; }
+
+            .products-grid { grid-template-columns: repeat(2, 1fr); }
+
+            .testi-grid { grid-template-columns: 1fr; }
+
+            .cobertura-layout { grid-template-columns: 1fr; gap: 2rem; }
+
+            header { padding: 0.875rem 1.5rem; }
+        }
+
+        @media (max-width: 480px) {
+            h1.hero-h1 { font-size: 3.8rem; }
+            .hero-actions { flex-direction: column; }
+            .btn-main, .btn-ghost { justify-content: center; text-align: center; }
+            .cobertura-box { padding: 2rem; }
+            .testi { padding: 2.5rem 1.75rem; }
+            #cta-final { padding: 6rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header id="header">
+    <a href="#hero" class="nav-brand">Barraca <em>Don Roque</em></a>
+    <nav class="nav-links">
+        <a href="#porque">Nosotros</a>
+        <a href="#productos">Materiales</a>
+        <a href="#como">Cómo funciona</a>
+        <a href="#cobertura">Cobertura</a>
+        <a href="https://wa.me/59899000000?text=Hola,%20quiero%20consultar%20materiales" class="nav-wa">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.024.505 3.93 1.38 5.608L0 24l6.617-1.352C8.25 23.497 10.076 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.85 0-3.576-.504-5.063-1.38l-.362-.214-3.737.764.792-3.643-.233-.374C2.54 15.617 2 13.87 2 12 2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+            WhatsApp
+        </a>
+    </nav>
+    <a href="https://wa.me/59899000000?text=Hola,%20quiero%20consultar%20materiales" class="nav-wa nav-mobile">
+        <svg viewBox="0 0 24 24" fill="currentColor" style="width:14px;height:14px"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.024.505 3.93 1.38 5.608L0 24l6.617-1.352C8.25 23.497 10.076 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.85 0-3.576-.504-5.063-1.38l-.362-.214-3.737.764.792-3.643-.233-.374C2.54 15.617 2 13.87 2 12 2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        WhatsApp
+    </a>
+</header>
+
+
+<!-- ===== HERO ===== -->
+<section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+        <p class="hero-eyebrow">Materiales de Construcción · Ciudad de la Costa</p>
+        <h1 class="hero-h1">
+            Barraca
+            <span class="rust">Don Roque</span>
+        </h1>
+        <div class="hero-sep"></div>
+        <p class="hero-tagline">Material de obra sin vueltas.<br>Precio claro, entrega el mismo día.</p>
+        <div class="hero-actions">
+            <a href="https://wa.me/59899000000?text=Hola,%20quiero%20consultar%20materiales" class="btn-main">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.024.505 3.93 1.38 5.608L0 24l6.617-1.352C8.25 23.497 10.076 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.85 0-3.576-.504-5.063-1.38l-.362-.214-3.737.764.792-3.643-.233-.374C2.54 15.617 2 13.87 2 12 2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+                Consultar ahora
+            </a>
+            <a href="#productos" class="btn-ghost">Ver materiales</a>
+        </div>
+    </div>
+    <div class="hero-stats">
+        <div>
+            <div class="stat-num">+20</div>
+            <div class="stat-label">años en el barrio</div>
+        </div>
+        <div>
+            <div class="stat-num">Mismo día</div>
+            <div class="stat-label">entrega disponible</div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ===== POR QUÉ DON ROQUE ===== -->
+<section id="porque">
+    <div class="container">
+        <p class="s-eyebrow">Por qué elegirnos</p>
+        <h2 class="s-title">20 años de obra.<br>No de catálogo.</h2>
+        <div class="difs-grid">
+            <div class="dif">
+                <!-- Ícono: casa / barrio -->
+                <svg class="dif-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75"/>
+                </svg>
+                <h3>Conocemos el barrio</h3>
+                <p>Más de 20 años trabajando con vecinos y contratistas de Ciudad de la Costa. Sabemos qué se construye acá, qué falla y qué materiales aguantan la humedad y el clima costero.</p>
+            </div>
+            <div class="dif">
+                <!-- Ícono: diálogo / asesoramiento -->
+                <svg class="dif-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z"/>
+                </svg>
+                <h3>Asesoramiento sin humo</h3>
+                <p>Te decimos qué necesitás realmente — ni más ni menos. Sin venderte metro cúbico cuando alcanza la bolsa, sin marcas caras cuando el producto base resuelve el trabajo.</p>
+            </div>
+            <div class="dif">
+                <!-- Ícono: precio / ticket -->
+                <svg class="dif-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 14.25l6-6m4.5-3.493V21.75l-3.75-1.5-3.75 1.5-3.75-1.5-3.75 1.5V4.757c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0c1.1.128 1.907 1.077 1.907 2.185zM9.75 9h.008v.008H9.75V9zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm4.125 4.5h.008v.008h-.008V13.5zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"/>
+                </svg>
+                <h3>Precio honesto</h3>
+                <p>Sin recargos ocultos ni sorpresas al final. Cotizamos claro, entregamos lo que prometemos. El precio que te damos por WhatsApp es el precio que pagás.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ===== PRODUCTOS ===== -->
+<section id="productos">
+    <div class="container">
+        <p class="s-eyebrow">Materiales</p>
+        <h2 class="s-title">Todo lo que<br>necesita la obra</h2>
+        <div class="products-grid">
+
+            <div class="product">
+                <svg class="product-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"/>
+                </svg>
+                <span>Cemento y mezclas</span>
+            </div>
+
+            <div class="product">
+                <svg class="product-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12"/>
+                </svg>
+                <span>Hierro y ferretería</span>
+            </div>
+
+            <div class="product">
+                <svg class="product-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5"/>
+                </svg>
+                <span>Madera y tableros</span>
+            </div>
+
+            <div class="product">
+                <svg class="product-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42"/>
+                </svg>
+                <span>Pintura y recubrimientos</span>
+            </div>
+
+            <div class="product">
+                <svg class="product-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z"/>
+                </svg>
+                <span>Sanitarios y cañerías</span>
+            </div>
+
+            <div class="product">
+                <svg class="product-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z"/>
+                </svg>
+                <span>Pisos y revestimientos</span>
+            </div>
+
+            <div class="product">
+                <svg class="product-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75"/>
+                </svg>
+                <span>Herramientas</span>
+            </div>
+
+            <div class="product">
+                <svg class="product-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"/>
+                </svg>
+                <span>Áridos y arena</span>
+            </div>
+
+        </div>
+        <p class="products-note">¿No encontrás lo que buscás? Consultanos — si no lo tenemos, lo conseguimos.</p>
+    </div>
+</section>
+
+
+<!-- ===== CÓMO FUNCIONA ===== -->
+<section id="como">
+    <div class="container">
+        <p class="s-eyebrow">Proceso</p>
+        <h2 class="s-title">Tres pasos.<br>Sin vueltas.</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-num">01</div>
+                <h3>Consultá</h3>
+                <p>Mandanos un WhatsApp con lo que necesitás — una foto, una lista, o simplemente contándonos el trabajo. No hace falta tener todo claro de entrada.</p>
+                <div class="step-arrow">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 5l7 7-7 7"/></svg>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">02</div>
+                <h3>Cotizamos</h3>
+                <p>Te respondemos con precio y disponibilidad en menos de 2 horas en horario de local. Sin compromiso, sin demoras, sin letra chica.</p>
+                <div class="step-arrow">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 5l7 7-7 7"/></svg>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">03</div>
+                <h3>Retirás o recibís</h3>
+                <p>Pasá por el local o coordinamos entrega directa a tu obra. Para volúmenes grandes tenemos envío el mismo día dentro de la zona de cobertura.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ===== COBERTURA ===== -->
+<section id="cobertura">
+    <div class="container">
+        <p class="s-eyebrow">Zona de reparto</p>
+        <h2 class="s-title">Llegamos a<br>toda la costa</h2>
+        <div class="cobertura-layout">
+            <div>
+                <div class="zonas-list">
+                    <div class="zona">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-2.003 3.5-4.697 3.5-8.318a6.5 6.5 0 00-13 0c0 3.621 1.555 6.315 3.5 8.318a19.579 19.579 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" clip-rule="evenodd"/></svg>
+                        <span>Solymar</span>
+                        <span class="zona-tag">Local aquí</span>
+                    </div>
+                    <div class="zona">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-2.003 3.5-4.697 3.5-8.318a6.5 6.5 0 00-13 0c0 3.621 1.555 6.315 3.5 8.318a19.579 19.579 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" clip-rule="evenodd"/></svg>
+                        <span>Lagomar</span>
+                    </div>
+                    <div class="zona">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-2.003 3.5-4.697 3.5-8.318a6.5 6.5 0 00-13 0c0 3.621 1.555 6.315 3.5 8.318a19.579 19.579 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" clip-rule="evenodd"/></svg>
+                        <span>El Pinar</span>
+                    </div>
+                    <div class="zona">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-2.003 3.5-4.697 3.5-8.318a6.5 6.5 0 00-13 0c0 3.621 1.555 6.315 3.5 8.318a19.579 19.579 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" clip-rule="evenodd"/></svg>
+                        <span>Barros Blancos</span>
+                    </div>
+                    <div class="zona">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-2.003 3.5-4.697 3.5-8.318a6.5 6.5 0 00-13 0c0 3.621 1.555 6.315 3.5 8.318a19.579 19.579 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" clip-rule="evenodd"/></svg>
+                        <span>Costa de Oro</span>
+                    </div>
+                    <div class="zona">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-2.003 3.5-4.697 3.5-8.318a6.5 6.5 0 00-13 0c0 3.621 1.555 6.315 3.5 8.318a19.579 19.579 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" clip-rule="evenodd"/></svg>
+                        <span>Montevideo</span>
+                        <span class="zona-tag">Consultar</span>
+                    </div>
+                </div>
+            </div>
+            <div class="cobertura-box">
+                <h3>Entrega directa a la obra</h3>
+                <p>Coordinamos la entrega según el volumen del pedido. Para cargas grandes hacemos el envío el mismo día si confirmás antes del mediodía.</p>
+                <p>Para pedidos chicos o urgentes, podés pasar a buscar al local directamente. Abrimos de lunes a sábado de 8:00 a 18:00.</p>
+                <a href="https://wa.me/59899000000?text=Hola,%20quiero%20consultar%20una%20entrega" class="btn-main" style="font-size:0.875rem; padding:0.875rem 1.5rem;">
+                    <svg viewBox="0 0 24 24" fill="currentColor" style="width:16px;height:16px"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.024.505 3.93 1.38 5.608L0 24l6.617-1.352C8.25 23.497 10.076 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.85 0-3.576-.504-5.063-1.38l-.362-.214-3.737.764.792-3.643-.233-.374C2.54 15.617 2 13.87 2 12 2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+                    Consultar envío
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ===== TESTIMONIOS ===== -->
+<section id="testimonios">
+    <div class="container">
+        <p class="s-eyebrow">Testimonios</p>
+        <h2 class="s-title">Lo que dicen<br>los que construyen</h2>
+        <div class="testi-grid">
+            <div class="testi">
+                <div class="quote-mark">"</div>
+                <blockquote>"Reformé mi casa entera con materiales de Don Roque. Siempre precio justo y entrega puntual. Ni un problema en todo el proceso."</blockquote>
+                <div class="testi-footer">
+                    <div class="testi-init">M</div>
+                    <div class="testi-info">
+                        <strong>Marcelo F.</strong>
+                        <span>Solymar · propietario</span>
+                    </div>
+                </div>
+            </div>
+            <div class="testi">
+                <div class="quote-mark">"</div>
+                <blockquote>"Llevo 5 años trabajando con ellos. La confianza que me dan en cada pedido no la encuentro en ningún otro lado. Y cuando tengo urgencia, siempre me resuelven."</blockquote>
+                <div class="testi-footer">
+                    <div class="testi-init">R</div>
+                    <div class="testi-info">
+                        <strong>Roberto A.</strong>
+                        <span>Lagomar · contratista</span>
+                    </div>
+                </div>
+            </div>
+            <div class="testi">
+                <div class="quote-mark">"</div>
+                <blockquote>"No sabía nada de construcción y ellos me asesoraron sin hacerme sentir mal. Compré exactamente lo que necesitaba — ni de más ni de menos."</blockquote>
+                <div class="testi-footer">
+                    <div class="testi-init">V</div>
+                    <div class="testi-info">
+                        <strong>Verónica L.</strong>
+                        <span>El Pinar · propietaria</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ===== FAQ ===== -->
+<section id="faq">
+    <div class="container">
+        <p class="s-eyebrow">Preguntas frecuentes</p>
+        <h2 class="s-title">Lo que siempre<br>nos preguntan</h2>
+        <div class="faq-list">
+
+            <div class="faq-item">
+                <button class="faq-q" aria-expanded="false">
+                    <span class="faq-q-text">¿Hacen entregas a domicilio?</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                </button>
+                <div class="faq-a" role="region">
+                    <div class="faq-a-inner">Sí, coordinamos la entrega directamente a tu obra o domicilio dentro de la zona de cobertura. Para volúmenes grandes contamos con camioneta propia. Para pedidos menores, consultanos disponibilidad — en muchos casos lo resolvemos el mismo día.</div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-q" aria-expanded="false">
+                    <span class="faq-q-text">¿Cuánto tardan en cotizar?</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                </button>
+                <div class="faq-a" role="region">
+                    <div class="faq-a-inner">Respondemos en menos de 2 horas en horario de local (lunes a sábado 8:00 a 18:00). Si mandás el WhatsApp fuera de horario, te respondemos a primera hora del día siguiente.</div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-q" aria-expanded="false">
+                    <span class="faq-q-text">¿Qué formas de pago aceptan?</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                </button>
+                <div class="faq-a" role="region">
+                    <div class="faq-a-inner">Aceptamos efectivo en local, transferencia bancaria y pago con tarjeta. Para clientes habituales también manejamos cuenta corriente — consultanos.</div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-q" aria-expanded="false">
+                    <span class="faq-q-text">¿Puedo ir sin saber exactamente qué necesito?</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                </button>
+                <div class="faq-a" role="region">
+                    <div class="faq-a-inner">Por supuesto. Vení con fotos de tu obra o contanos el trabajo que querés hacer — te orientamos sin compromiso y sin venderte de más. Eso es lo que hacemos hace 20 años.</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- ===== CTA FINAL ===== -->
+<section id="cta-final">
+    <div class="container">
+        <p class="cta-eyebrow">¿Arrancamos?</p>
+        <h2 class="cta-title">
+            Mandá un<br>
+            <span>WhatsApp.</span>
+        </h2>
+        <p class="cta-sub">El material que buscás, a precio claro, cuando lo necesitás.</p>
+        <a href="https://wa.me/59899000000?text=Hola,%20quiero%20consultar%20materiales" class="cta-btn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.024.505 3.93 1.38 5.608L0 24l6.617-1.352C8.25 23.497 10.076 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.85 0-3.576-.504-5.063-1.38l-.362-.214-3.737.764.792-3.643-.233-.374C2.54 15.617 2 13.87 2 12 2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+            Consultá ahora — sin compromiso
+        </a>
+    </div>
+</section>
+
+
+<!-- ===== FOOTER ===== -->
+<footer>
+    <div class="footer-brand">Barraca <em>Don Roque</em></div>
+    <p>Solymar, Ciudad de la Costa · Lun–Sáb 8:00–18:00</p>
+    <p>© 2026 · Todos los derechos reservados</p>
+</footer>
+
+
+<!-- ===== WHATSAPP FLOTANTE ===== -->
+<a href="https://wa.me/59899000000?text=Hola,%20quiero%20consultar%20materiales"
+   class="wa-float"
+   aria-label="Contactar por WhatsApp">
+    <div class="wa-pulse"></div>
+    <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/>
+        <path d="M12 0C5.373 0 0 5.373 0 12c0 2.024.505 3.93 1.38 5.608L0 24l6.617-1.352C8.25 23.497 10.076 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.85 0-3.576-.504-5.063-1.38l-.362-.214-3.737.764.792-3.643-.233-.374C2.54 15.617 2 13.87 2 12 2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+    </svg>
+</a>
+
+
+<script>
+    // ===== FAQ Accordion =====
+    document.querySelectorAll('.faq-q').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const item = btn.closest('.faq-item');
+            const answer = item.querySelector('.faq-a');
+            const isOpen = item.classList.contains('open');
+
+            // Cerrar todos
+            document.querySelectorAll('.faq-item.open').forEach(el => {
+                el.classList.remove('open');
+                el.querySelector('.faq-a').style.maxHeight = '0';
+                el.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+            });
+
+            // Abrir el clickeado si estaba cerrado
+            if (!isOpen) {
+                item.classList.add('open');
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+                btn.setAttribute('aria-expanded', 'true');
+            }
+        });
+    });
+
+    // ===== Header scroll =====
+    const hdr = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+        hdr.style.background = window.scrollY > 60
+            ? 'rgba(17, 15, 13, 0.97)'
+            : 'rgba(17, 15, 13, 0.93)';
+    }, { passive: true });
+</script>
+
+</body>
+</html>
