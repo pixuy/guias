@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#0D1117">
+<title>Google Ads — PIX</title>
+<style>
+  :root {
+    --bg:      #0D1117;
+    --card:    #161B22;
+    --card2:   #1C2333;
+    --green:   #34A853;
+    --blue:    #4285F4;
+    --red:     #EA4335;
+    --yellow:  #FBBC04;
+    --white:   #FFFFFF;
+    --text:    #C9D1D9;
+    --muted:   #8B949E;
+    --dark2:   #444C56;
+    --navy:    #0A1628;
+    --max:     480px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: #000;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  .phone {
+    max-width: var(--max);
+    margin: 0 auto;
+    background: var(--bg);
+    min-height: 100svh;
+    position: relative;
+  }
+
+  .slide {
+    min-height: 100svh;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .footer {
+    position: absolute;
+    bottom: 16px;
+    left: 0; right: 0;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.03em;
+  }
+
+  .tag {
+    display: inline-block;
+    background: var(--blue);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    padding: 4px 12px;
+    margin-bottom: 20px;
+    align-self: flex-start;
+  }
+
+  .h1 { font-family: "Arial Black", Impact, sans-serif; font-size: clamp(28px, 9vw, 40px); line-height: 1.1; color: var(--white); font-weight: 900; }
+  .h2 { font-family: "Arial Black", Impact, sans-serif; font-size: clamp(22px, 7vw, 32px); line-height: 1.15; color: var(--white); font-weight: 900; }
+  .body { font-size: clamp(16px, 4.5vw, 18px); line-height: 1.6; color: var(--text); }
+
+  @keyframes fadeUp   { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes fadeLeft { from { opacity:0; transform:translateX(-28px); } to { opacity:1; transform:translateX(0); } }
+  @keyframes fadeRight{ from { opacity:0; transform:translateX(28px); } to { opacity:1; transform:translateX(0); } }
+  @keyframes scaleIn  { from { opacity:0; transform:scale(0.4); } to { opacity:1; transform:scale(1); } }
+  @keyframes countIn  { from { opacity:0; transform:scale(0.6) translateY(20px); } to { opacity:1; transform:scale(1) translateY(0); } }
+  @keyframes pulse    { 0%,100% { opacity:1; } 50% { opacity:0.4; } }
+
+  .anim { opacity: 0; }
+  .slide.in .anim       { animation: fadeUp   0.55s cubic-bezier(.22,.68,0,1.2) forwards; }
+  .slide.in .anim-l     { animation: fadeLeft 0.55s cubic-bezier(.22,.68,0,1.2) forwards; }
+  .slide.in .anim-r     { animation: fadeRight 0.55s cubic-bezier(.22,.68,0,1.2) forwards; }
+  .slide.in .anim-scale { animation: scaleIn  0.65s cubic-bezier(.34,1.56,.64,1) forwards; }
+  .slide.in .anim-count { animation: countIn  0.7s cubic-bezier(.34,1.56,.64,1) forwards; }
+
+  .d1 { animation-delay: 0.05s !important; }
+  .d2 { animation-delay: 0.15s !important; }
+  .d3 { animation-delay: 0.25s !important; }
+  .d4 { animation-delay: 0.35s !important; }
+  .d5 { animation-delay: 0.45s !important; }
+  .d6 { animation-delay: 0.55s !important; }
+  .d7 { animation-delay: 0.65s !important; }
+  .d8 { animation-delay: 0.75s !important; }
+
+  /* ── S1 PORTADA ─────────────────────────────────────────────── */
+  #s1 { background: var(--bg); padding-top: 12px; justify-content: flex-start; }
+
+  .google-bar { display: flex; height: 8px; margin: 0 -24px; }
+  .google-bar span { flex: 1; }
+  .gb-blue   { background: var(--blue); }
+  .gb-red    { background: var(--red); }
+  .gb-yellow { background: var(--yellow); }
+  .gb-green  { background: var(--green); }
+
+  .s1-inner {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 24px 0 60px;
+  }
+
+  .ads-ring {
+    width: min(58vw, 220px);
+    height: min(58vw, 220px);
+    border-radius: 50%;
+    border: 2px solid var(--blue);
+    background: var(--card2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: 28px;
+    position: relative;
+  }
+  .ads-ring::before {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    border: 1px solid rgba(66,133,244,0.2);
+  }
+  .ads-g { font-family: "Arial Black", Impact, sans-serif; font-size: min(22vw, 84px); font-weight: 900; color: var(--blue); line-height: 1; }
+  .ads-label {
+    font-size: min(5.5vw, 20px);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--yellow);
+    line-height: 1;
+  }
+
+  .s1-title { font-family: "Arial Black", Impact, sans-serif; font-size: clamp(26px, 8.5vw, 36px); font-weight: 900; color: var(--white); line-height: 1.1; margin-bottom: 16px; }
+  .s1-sub { font-size: clamp(15px, 4vw, 17px); color: var(--text); line-height: 1.5; max-width: 340px; }
+
+  .scroll-hint { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--muted); font-size: 11px; letter-spacing: 0.05em; }
+  .scroll-hint svg { animation: pulse 1.8s ease-in-out infinite; }
+
+  /* ── S2 CÓMO FUNCIONA ────────────────────────────────────────── */
+  #s2 { background: var(--bg); padding-top: 52px; padding-bottom: 52px; }
+
+  .def-card {
+    background: var(--card);
+    border-left: 4px solid var(--blue);
+    padding: 20px 18px;
+    margin: 20px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .def-card p { font-size: clamp(16px, 4.3vw, 18px); line-height: 1.6; color: var(--text); }
+
+  .pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+  .pill {
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-size: clamp(13px, 3.5vw, 15px);
+    font-weight: 600;
+    border: 1px solid;
+  }
+
+  /* ── S3 LO QUE VE EL CLIENTE ─────────────────────────────────── */
+  #s3 { background: var(--bg); padding-top: 52px; padding-bottom: 52px; }
+
+  .serp-mock {
+    background: var(--card);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 20px;
+  }
+  .serp-bar {
+    background: #1a1f2e;
+    padding: 10px 14px;
+    font-size: 12px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .serp-bar svg { flex-shrink: 0; }
+  .serp-query { color: var(--white); font-size: 13px; }
+
+  .serp-result {
+    padding: 12px 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .serp-result:last-child { border-bottom: none; }
+  .serp-ad { display: inline-block; border: 1px solid var(--yellow); color: var(--yellow); font-size: 10px; font-weight: 700; padding: 1px 5px; margin-bottom: 4px; border-radius: 2px; }
+  .serp-organic { display: inline-block; border: 1px solid var(--dark2); color: var(--dark2); font-size: 10px; padding: 1px 5px; margin-bottom: 4px; border-radius: 2px; }
+  .serp-title { font-size: 14px; color: var(--blue); font-weight: 600; line-height: 1.3; }
+  .serp-desc { font-size: 11px; color: var(--muted); margin-top: 3px; line-height: 1.4; }
+  .serp-url { font-size: 10px; color: var(--green); margin-top: 2px; }
+
+  .serp-note { font-size: 13px; color: var(--muted); margin-top: 14px; line-height: 1.5; font-style: italic; }
+
+  /* ── S4 POR QUÉ FUNCIONA ─────────────────────────────────────── */
+  #s4 { background: var(--bg); padding-top: 52px; padding-bottom: 52px; }
+
+  .items-list { margin-top: 20px; display: flex; flex-direction: column; gap: 0; }
+  .item-row { display: flex; align-items: center; gap: 14px; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .item-row:last-child { border-bottom: none; }
+  .item-circle { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+  .item-text { font-size: clamp(15px, 4.2vw, 17px); color: var(--white); font-weight: 500; }
+
+  /* ── S5 SIN ADS ──────────────────────────────────────────────── */
+  #s5 { background: #080810; padding-top: 52px; padding-bottom: 52px; }
+
+  .impact-block {
+    background: #0f0f1a;
+    border-left: 5px solid var(--blue);
+    padding: 24px 18px;
+    margin: 24px 0;
+    border-radius: 0 6px 6px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .impact-line { font-size: clamp(16px, 4.3vw, 18px); color: var(--text); line-height: 1.6; }
+  .impact-note { font-size: clamp(15px, 4vw, 17px); color: var(--muted); font-style: italic; }
+
+  /* ── S6 STATS ────────────────────────────────────────────────── */
+  #s6 { background: var(--bg); padding-top: 52px; padding-bottom: 52px; }
+
+  .stats { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+  .stat-card { background: var(--card); border-radius: 6px; padding: 18px 20px; display: flex; align-items: center; gap: 18px; border-left: 5px solid; }
+  .stat-num { font-family: "Arial Black", Impact, sans-serif; font-size: clamp(40px, 12vw, 54px); font-weight: 900; line-height: 1; flex-shrink: 0; min-width: 80px; }
+  .stat-desc { font-size: clamp(14px, 3.8vw, 16px); color: var(--text); line-height: 1.45; }
+  .source { font-size: 11px; color: #444; text-align: right; margin-top: 8px; }
+
+  /* ── S7 PRESUPUESTO ──────────────────────────────────────────── */
+  #s7 { background: var(--bg); text-align: center; }
+
+  .budget-title { font-family: "Arial Black", Impact, sans-serif; font-size: clamp(24px, 7vw, 32px); font-weight: 900; color: var(--white); margin-bottom: 4px; }
+  .budget-word { font-family: "Arial Black", Impact, sans-serif; font-size: clamp(60px, 19vw, 96px); font-weight: 900; color: var(--blue); line-height: 0.95; margin: 12px 0 20px; text-shadow: 0 0 60px rgba(66,133,244,0.3); }
+
+  .budget-items { display: flex; flex-direction: column; gap: 12px; text-align: left; }
+  .budget-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px; background: var(--card); border-radius: 6px; }
+  .budget-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 6px; flex-shrink: 0; }
+  .budget-text { font-size: clamp(14px, 3.8vw, 16px); color: var(--text); line-height: 1.5; }
+
+  /* ── S8 CTA ──────────────────────────────────────────────────── */
+  #s8 { background: var(--navy); padding-top: 52px; padding-bottom: 52px; }
+  #s8::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--blue); }
+
+  .pix-block { background: var(--blue); padding: 18px; text-align: center; margin: 22px 0 20px; border-radius: 4px; }
+  .pix-name { font-family: "Arial Black", Impact, sans-serif; font-size: clamp(52px, 16vw, 72px); font-weight: 900; color: #fff; line-height: 1; }
+  .pix-sub { font-size: 13px; color: rgba(255,255,255,0.8); margin-top: 4px; }
+
+  .cta-btns { display: flex; flex-direction: column; gap: 12px; }
+  .btn { display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 56px; border-radius: 4px; font-size: clamp(16px, 4.5vw, 18px); font-weight: 700; text-decoration: none; padding: 0 20px; transition: opacity 0.15s; cursor: pointer; border: none; }
+  .btn:active { opacity: 0.8; }
+  .btn-wa  { background: #25D366; color: #fff; }
+  .btn-web { background: var(--card); color: var(--white); border: 1px solid var(--blue); }
+  .cta-caption { text-align: center; font-size: 12px; color: var(--muted); margin-top: 16px; }
+
+  @media (min-width: 520px) {
+    body { padding: 40px 0; background: #050507; }
+    .phone { border-radius: 12px; overflow: hidden; box-shadow: 0 0 0 1px #222, 0 24px 80px rgba(0,0,0,0.8); }
+  }
+</style>
+</head>
+<body>
+<div class="phone">
+
+  <!-- S1 PORTADA -->
+  <section class="slide" id="s1">
+    <div class="google-bar anim d1">
+      <span class="gb-blue"></span><span class="gb-red"></span>
+      <span class="gb-yellow"></span><span class="gb-green"></span>
+    </div>
+    <div class="s1-inner">
+      <div class="anim-scale anim d2">
+        <div class="ads-ring">
+          <span class="ads-g">G</span>
+          <span class="ads-label">ADS</span>
+        </div>
+      </div>
+      <h1 class="s1-title anim d3">¿Sabés qué pasa cuando alguien busca lo que vendés en Google?</h1>
+      <p class="s1-sub anim d4">Una guía práctica sobre Google Ads — qué es, cómo funciona y por qué lo recomendamos</p>
+    </div>
+    <div class="scroll-hint anim d5">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 5v14M5 12l7 7 7-7"/>
+      </svg>
+      deslizá
+    </div>
+    <div class="footer">PIX Agencia Digital · pix.uy</div>
+  </section>
+
+  <!-- S2 QUÉ ES -->
+  <section class="slide" id="s2">
+    <span class="tag anim d1">QUÉ ES</span>
+    <h2 class="h2 anim d2">Google Ads: aparecer primero cuando alguien te busca</h2>
+
+    <div class="def-card anim d3">
+      <p>Es el sistema de publicidad de Google. Cuando alguien escribe algo en el buscador, los primeros resultados que aparecen marcados como "Patrocinado" son anuncios de Google Ads.</p>
+    </div>
+
+    <p class="body anim d4" style="margin-top:4px">Lo que lo hace diferente a otras publicidades es que el anuncio aparece justo en el momento en que alguien está buscando lo que vos ofrecés.</p>
+
+    <div class="pills anim d5">
+      <span class="pill" style="color:var(--blue);border-color:var(--blue)">🔍 Búsqueda activa</span>
+      <span class="pill" style="color:var(--green);border-color:var(--green)">📍 Por zona</span>
+      <span class="pill" style="color:var(--yellow);border-color:var(--yellow)">💰 Pagás por clic</span>
+    </div>
+
+    <div class="footer">PIX Agencia Digital · pix.uy</div>
+  </section>
+
+  <!-- S3 LO QUE VE EL CLIENTE -->
+  <section class="slide" id="s3">
+    <span class="tag anim d1">LO QUE VE</span>
+    <h2 class="h2 anim d2">Así se ve en el celular de tu cliente:</h2>
+
+    <div class="serp-mock anim d3">
+      <div class="serp-bar">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        <span class="serp-query">plomero montevideo</span>
+      </div>
+      <div class="serp-result">
+        <span class="serp-ad">Patrocinado</span>
+        <div class="serp-title">Plomería 24hs · Tu Zona · Llamanos</div>
+        <div class="serp-url">plomeria-ejemplo.com.uy</div>
+        <div class="serp-desc">Atención inmediata. Presupuesto sin cargo. Más de 10 años de experiencia.</div>
+      </div>
+      <div class="serp-result">
+        <span class="serp-ad">Patrocinado</span>
+        <div class="serp-title">Plomero de Confianza · Zona Norte</div>
+        <div class="serp-url">plomero-norte.com.uy</div>
+        <div class="serp-desc">Urgencias y reparaciones. Disponible hoy.</div>
+      </div>
+      <div class="serp-result">
+        <span class="serp-organic">Orgánico</span>
+        <div class="serp-title" style="color:var(--muted)">Directorio de plomeros...</div>
+        <div class="serp-desc">resultados.com.uy › plomeros</div>
+      </div>
+    </div>
+
+    <p class="serp-note anim d4">Los resultados "Patrocinado" aparecen antes que todo lo demás. Quien busca los ve primero.</p>
+
+    <div class="footer">PIX Agencia Digital · pix.uy</div>
+  </section>
+
+  <!-- S4 POR QUÉ FUNCIONA -->
+  <section class="slide" id="s4">
+    <span class="tag anim d1">POR QUÉ FUNCIONA</span>
+    <h2 class="h2 anim d2">Es publicidad basada en intención</h2>
+
+    <div class="items-list">
+      <div class="item-row anim d3">
+        <div class="item-circle" style="background:rgba(66,133,244,0.2);border:1px solid var(--blue)">🎯</div>
+        <span class="item-text">Llegás a quien ya está buscando lo que vendés</span>
+      </div>
+      <div class="item-row anim d3" style="animation-delay:.2s">
+        <div class="item-circle" style="background:rgba(52,168,83,0.2);border:1px solid var(--green)">📍</div>
+        <span class="item-text">Podés mostrar el anuncio solo en tu zona</span>
+      </div>
+      <div class="item-row anim d4">
+        <div class="item-circle" style="background:rgba(251,188,4,0.2);border:1px solid var(--yellow)">🕐</div>
+        <span class="item-text">Elegís en qué horarios aparece tu anuncio</span>
+      </div>
+      <div class="item-row anim d4" style="animation-delay:.35s">
+        <div class="item-circle" style="background:rgba(234,67,53,0.2);border:1px solid var(--red)">📊</div>
+        <span class="item-text">Todo es medible: clics, llamadas, formularios</span>
+      </div>
+      <div class="item-row anim d5">
+        <div class="item-circle" style="background:rgba(168,85,247,0.2);border:1px solid #A855F7">⏸️</div>
+        <span class="item-text">Podés pausarlo cuando quieras</span>
+      </div>
+    </div>
+
+    <div class="footer">PIX Agencia Digital · pix.uy</div>
+  </section>
+
+  <!-- S5 SIN ADS -->
+  <section class="slide" id="s5">
+    <span class="tag anim d1" style="background:var(--dark2)">SIN ADS</span>
+    <h2 class="h2 anim d2">¿Qué pasa si no usás Google Ads?</h2>
+
+    <div class="impact-block">
+      <p class="impact-line anim d3">Cuando alguien busca tu rubro, los primeros resultados que ve son los anuncios de tus competidores.</p>
+      <p class="impact-line anim d4">Tu negocio puede aparecer en los resultados orgánicos — pero más abajo, después de los anuncios.</p>
+      <p class="impact-note anim d5">No es un problema grave ni urgente. Pero es una oportunidad que existe y que otros están aprovechando.</p>
+    </div>
+
+    <div class="footer">PIX Agencia Digital · pix.uy</div>
+  </section>
+
+  <!-- S6 STATS -->
+  <section class="slide" id="s6">
+    <span class="tag anim d1">EN NÚMEROS</span>
+    <h2 class="h2 anim d2">Algunos datos que ayudan a entenderlo:</h2>
+
+    <div class="stats">
+      <div class="stat-card anim d3" style="border-color:var(--blue)">
+        <span class="stat-num anim-count d3" style="color:var(--blue)">8x</span>
+        <span class="stat-desc">de retorno promedio por cada dólar invertido en Google Ads — para negocios locales</span>
+      </div>
+      <div class="stat-card anim d4" style="border-color:var(--yellow)">
+        <span class="stat-num anim-count d4" style="color:var(--yellow)">65%</span>
+        <span class="stat-desc">de los clics en búsquedas con alta intención de compra van a anuncios pagos</span>
+      </div>
+      <div class="stat-card anim d5" style="border-color:var(--green)">
+        <span class="stat-num anim-count d5" style="color:var(--green)">$0</span>
+        <span class="stat-desc">si nadie hace clic en tu anuncio — solo pagás cuando alguien lo ve y hace clic</span>
+      </div>
+    </div>
+
+    <p class="source anim d6">Fuente: Google Economic Impact / WordStream 2024</p>
+
+    <div class="footer">PIX Agencia Digital · pix.uy</div>
+  </section>
+
+  <!-- S7 PRESUPUESTO -->
+  <section class="slide" id="s7">
+    <span class="tag anim d1" style="align-self:center">PRESUPUESTO</span>
+    <p class="budget-title anim d2">¿Cuánto hay que invertir?</p>
+    <p class="budget-word anim-count anim d3">Flexible</p>
+
+    <div class="budget-items anim d4">
+      <div class="budget-item">
+        <div class="budget-dot" style="background:var(--blue)"></div>
+        <span class="budget-text">Vos definís el presupuesto diario o mensual</span>
+      </div>
+      <div class="budget-item">
+        <div class="budget-dot" style="background:var(--green)"></div>
+        <span class="budget-text">Podés empezar con montos chicos y ajustar según los resultados</span>
+      </div>
+      <div class="budget-item">
+        <div class="budget-dot" style="background:var(--yellow)"></div>
+        <span class="budget-text">Google nunca te cobra más de lo que autorizás</span>
+      </div>
+    </div>
+
+    <div class="footer">PIX Agencia Digital · pix.uy</div>
+  </section>
+
+  <!-- S8 CTA -->
+  <section class="slide" id="s8">
+    <span class="tag anim d1" style="background:var(--blue)">¿TENÉS DUDAS?</span>
+    <h2 class="h2 anim d2">Si te quedó alguna pregunta, con gusto te orientamos.</h2>
+
+    <p class="body anim d3" style="margin-top:12px">
+      En PIX trabajamos con negocios locales. Si te interesa saber más sobre cómo funciona Google Ads o si tiene sentido para tu caso, podemos charlar sin compromiso.
+    </p>
+
+    <div class="pix-block anim-scale anim d4">
+      <div class="pix-name">PIX</div>
+      <div class="pix-sub">Agencia Digital · pix.uy</div>
+    </div>
+
+    <div class="cta-btns">
+      <a href="https://wa.me/59898611549" class="btn btn-wa anim d5">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+          <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.527 5.85L0 24l6.327-1.501A11.956 11.956 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.65-.49-5.187-1.348l-.371-.22-3.757.892.924-3.656-.241-.382A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+        </svg>
+        Consultanos por WhatsApp
+      </a>
+      <a href="https://pix.uy" class="btn btn-web anim d6">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/>
+          <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
+        </svg>
+        pix.uy
+      </a>
+    </div>
+
+    <p class="cta-caption anim d7">Sin compromiso. Te contamos cómo funciona.</p>
+  </section>
+
+</div>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('in');
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.slide').forEach(el => observer.observe(el));
+  document.querySelector('#s1').classList.add('in');
+</script>
+</body>
+</html>
